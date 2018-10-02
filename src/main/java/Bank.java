@@ -10,10 +10,11 @@
 public class Bank {
 
     public String bankName;
-
     public Bank() {
         bankName = "Illini Bank";
+//        accountNumber += 1;
     }
+    public double balance;
 
     /**
      * Withdraw money from an account.
@@ -26,9 +27,15 @@ public class Bank {
      * @return boolean
      */
     public boolean withdrawMoney(final BankAccount bankAccount, final double amount) {
-        /*
-         * Implement this function
-         */
+        if (bankAccount == null) {
+            return false;
+        }
+        if (amount > balance) {
+            return false;
+        } else {
+            balance -= amount;
+            return true;
+        }
     }
 
     /**
@@ -42,9 +49,12 @@ public class Bank {
      * @return boolean
      */
     public boolean depositMoney(final BankAccount bankAccount, final double amount) {
-        /*
-         * Implement this function
-         */
+        if (bankAccount == null) {
+            return false;
+        } else {
+            balance += amount;
+            return true;
+        }
     }
 
     /**
@@ -61,9 +71,16 @@ public class Bank {
 
     public boolean transferMoney(final BankAccount source, final BankAccount destination,
             final double amount) {
-        /*
-         * Implement this function
-         */
+        if (source == null || destination == null) {
+            return false;
+        }
+        if (balance < amount) {
+            return false;
+        } else {
+            source.accountBalance -= amount;
+            destination.balance += amount;
+            return true;
+        }
     }
 
     /**
@@ -74,9 +91,7 @@ public class Bank {
      */
 
     public void changeOwnerName(final BankAccount bankAccount, final String name) {
-        /*
-         * Implement this function
-         */
+        bankName = name;
     }
 
     public static int totalAccounts = 0;
@@ -86,9 +101,7 @@ public class Bank {
      * @return the total number of accounts
      */
     public static int getNumberOfAccount() {
-        /*
-         * Implement this function
-         */
+        return totalAccounts;
     }
 
     /**
